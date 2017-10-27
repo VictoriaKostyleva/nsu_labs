@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto">
+
+    <!--<item-->
+    <!--android:id="@+id/search"-->
+    <!--android:orderInCategory="1"-->
+    <!--android:title="@string/search"/>-->
+
+    <item
+        android:id="@+id/settings"
+        android:orderInCategory="2"
+        android:title="@string/settings" />
+
+
+    <item
+        android:id="@+id/sort_1"
+        android:orderInCategory="2"
+        android:title="@string/sort_1" />
+
+    <item
+        android:id="@+id/sort_2"
+        android:orderInCategory="2"
+        android:title="@string/sort_2" />
+
+    <item
+        android:id="@+id/sort_3"
+        android:orderInCategory="2"
+        android:title="@string/sort_3" />
+
+
+    <!--<item-->
+        <!--android:id="@+id/action_edit"-->
+        <!--yourapp:showAsAction="ifRoom"-->
+        <!--android:icon="@drawable/icon_toolbar_edit"-->
+        <!--android:title="@string/edit" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_remove"-->
+        <!--yourapp:showAsAction="always"-->
+        <!--android:icon="@drawable/icon_toolbar_remove"-->
+        <!--android:title="@string/remove" />-->
+
+
+    <!--<item-->
+        <!--android:id="@+id/action_sort"-->
+        <!--android:icon="@drawable/ic_low_priority_white_24dp"-->
+        <!--android:title="@string/sort_ab"-->
+        <!--android:orderInCategory="2"-->
+        <!--yourapp:showAsAction="always" />-->
+
+    <item
+        android:id="@+id/action_search"
+        yourapp:actionViewClass="android.support.v7.widget.SearchView"
+        yourapp:showAsAction="always|collapseActionView"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:orderInCategory="1"
+        android:title="@android:string/search_go" />
+
+</menu>
