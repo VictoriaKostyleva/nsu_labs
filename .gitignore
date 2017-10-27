@@ -1,0 +1,11 @@
+# Android
+local.properties
+gradle.properties
+
+# Gradle
+.gradle
+build
+
+# IntelliJ Idea
+.idea
+*.iml
