@@ -9,4 +9,7 @@
     <string name="sort_1">Sort by date</string>
     <string name="sort_2">Sort by name</string>
     <string name="sort_3">Sort by value</string>
+    <string name="search_hint">Search hint</string>
+    <string name="edit">edit</string>
+    <string name="remove">remove</string> />
 </resources>

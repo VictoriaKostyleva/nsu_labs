@@ -1,9 +1,10 @@
 package com.example.vikacech.notes;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,18 +16,19 @@ import android.widget.Toast;
 import com.example.vikacech.notes.myNotes.Note;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Toolbar toolbar;
     FloatingActionButton fabAdd;
-
+    private Toolbar toolbar;
+//    private CollapsingToolbarLayout collapsingToolbarLayout;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mCard;
 
-//    TextView delMe;
-
+    private MenuItem searchMenuItem;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fabAdd.setOnClickListener((View.OnClickListener) this);
 
         ArrayList<Note> notes = new ArrayList<>();
-
-//        String[] myDataset = getDataSet();
-
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -52,38 +51,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new RecyclerAdapter(notes, new RecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Note item) {
+                Toast.makeText(MainActivity.this, "Item clicked", Toast.LENGTH_SHORT).show();
+
+//                Intent intent = new Intent(this, ActivityAddNote.class);
+//                startActivityForResult(intent, 1);
 
             }
         });
         mRecyclerView.setAdapter(mAdapter);
 
-//        delMe = (TextView) findViewById(R.id.del_me);
-
         initToolBar();
+        createCards();
+
     }
 
+
     private void initToolBar() {
-        toolbar = (Toolbar) findViewById(R.id.include);
+        //
+//        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.main_collapsing);//del
+//        collapsingToolbarLayout.setTitle("It works!");
+
+        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
         toolbar.inflateMenu(R.menu.menu);
 
+
+//        MenuItemCompat.setOnActionExpandListener(searchMenuItem.OnActionExpandListener);
+//        MenuItemCompat.setOnActionExpandListener(searchMenuItem, this);
+
     }
 
-//    private String[] getDataSet() {
-//
-//        String[] mDataSet = new String[30];
-//        for (int i = 0; i < 1; i++) {
-//            mDataSet[i] = "item" + i;
-//        }
-//        return mDataSet;
-//    }
+    private void createCards() {
+        ArrayList<Note> notes = new ArrayList<>();
+        for(int i = 0; i < 30; i++) {
+            notes.add(new Note("Note" + i, "Empty", false, new Date(System.currentTimeMillis())));
+        }
+        mAdapter.updateNotes(notes);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem edit = menu.findItem(R.id.action_edit);
+        edit.setVisible(false);
+
+        MenuItem delete = menu.findItem(R.id.action_delete);
+        delete.setVisible(false);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.floatingActionButtonAdd:
-                Intent intent = new Intent(this, ActivityAddNote.class);
+                Intent intent = ActivityAddNote.newIntent(this, new Note("test", "test test", true, new Date(System.currentTimeMillis())));
+
+
                 startActivityForResult(intent, 1);
 
                 break;
@@ -96,20 +120,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(data == null) {
+        /*if(data == null) {
             return;
         }
-        String name = data.getStringExtra("name");
+        String name = data.getStringExtra("name");*/
+        Note note = data.getParcelableExtra(ActivityAddNote.KEY_NOTE);
+        mAdapter.getNotes().add(note);
+        mAdapter.updateNotes(mAdapter.getNotes());
 
+        Toast.makeText(MainActivity.this, "Note added", Toast.LENGTH_SHORT).show();
 
-//        delMe.setText("The name of the note is " +  name );
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-
-        return super.onCreateOptionsMenu(menu);
+        searchMenuItem = menu.findItem(R.id.action_search);
+//        searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+//                Toast.makeText(MainActivity.this, "Search!!!", Toast.LENGTH_SHORT).show();
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+//                Toast.makeText(MainActivity.this, "Return from search!!!", Toast.LENGTH_SHORT).show();
+//                return false;
+//            }
+//        });
+        return super.onCreateOptionsMenu(menu);//
     }
 
     @Override
@@ -129,4 +169,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

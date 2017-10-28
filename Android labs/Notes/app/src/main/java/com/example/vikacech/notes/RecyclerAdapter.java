@@ -33,17 +33,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         // тут можно программно менять атрибуты лэйаута (size, margins, paddings и др.)
 
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Заменяет контент отдельного view (вызывается layout manager-ом)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         holder.mTextView.setText(notes.get(position).getName());
         holder.mCheckBox.setChecked(notes.get(position).isChecked());
+        holder.bind(notes.get(position), onItemClickListener);
 
+    }
+
+    public void updateNotes(ArrayList<Note> newNotes) {
+        notes.clear();
+        notes.addAll(newNotes);
+    }
+
+    public ArrayList<Note> getNotes() {
+        return notes;
     }
 
     // Возвращает размер данных (вызывается layout manager-ом)
@@ -58,13 +67,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public CheckBox mCheckBox;
-        public TextView mTextView;
+        private CheckBox mCheckBox;
+        private TextView mTextView;
+        private View view;
 
         public ViewHolder(View v) {
             super(v);
+            view = v;
             mTextView = (TextView) v.findViewById(R.id.info_text);
             mCheckBox = (CheckBox) v.findViewById(R.id.check_box);
+        }
+
+        public void bind(final Note note, final OnItemClickListener listener) {
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    listener.onItemClick(note);
+                    return true;//
+                }
+            });
         }
     }
 

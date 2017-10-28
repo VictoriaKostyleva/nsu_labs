@@ -4,21 +4,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/add_toolbar"
+        layout="@layout/toolbar_add_note" />
+
+
     <EditText
         android:id="@+id/enter_name_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:hint="@string/my_hint"
-        android:inputType="textCapWords" />
+        android:inputType="textCapWords"
+        android:layout_below="@+id/add_toolbar"/>
 
     <EditText
         android:id="@+id/enter_note"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:hint="@string/enter_note"
-        android:inputType="textCapWords" />
+        android:inputType="textCapWords"
+        android:layout_below="@+id/enter_name_note"/>
+
+
+
+    <Button
+        android:id="@+id/button_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_above="@+id/button_2"
+        android:layout_alignParentEnd="true"
+        android:text="1_read"/>
+
+    <Button
+        android:id="@+id/button_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floatingActionButtonNoteDone"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="11dp"
+        android:text="2_clear"/>
 
     <!--android:inputType="textCapWords"-->
     <!--/>-->
@@ -32,5 +57,7 @@
         android:layout_marginBottom="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:src="@drawable/ic_check_white_24dp" />
+
+
 
 </RelativeLayout>

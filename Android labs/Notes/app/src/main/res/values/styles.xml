@@ -2,13 +2,13 @@
 
     <!-- Base application theme. -->
 
-    <style name="AppTheme" parent="AppTheme.Base">
+    <!--<style name="AppTheme" parent="AppTheme.Base">-->
         <!-- Customize your theme here. -->
 
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
         <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <!--<item name="colorAccent">@color/colorAccent</item>-->
-    </style>
+    <!--</style>-->
 
     <!--Toolbar style-->
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
@@ -32,6 +32,22 @@
         <item name="android:textColorPrimaryInverse">@color/title</item>
         <item name="android:colorBackground">@color/divider</item>
     </style>
+
+
+
+
+        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+            <item name="colorPrimaryDark">@color/primary</item>
+            <item name="searchViewStyle">@style/AppSearchViewStyle</item>
+        </style>
+
+        <style name="AppSearchViewStyle" parent="Widget.AppCompat.SearchView">
+            <item name="queryBackground">@android:color/white</item>
+            <item name="searchIcon">@drawable/ic_search_white_24dp</item>
+            <item name="closeIcon">@drawable/ic_clear_white_24dp</item>
+            <item name="queryHint">@string/search_hint</item>
+            <item name="android:imeActionId">6</item>
+        </style>
 
 
     <!--<item name="android:actionMenuTextColor"-->

@@ -30,30 +30,31 @@
 
 
     <!--<item-->
-        <!--android:id="@+id/action_edit"-->
-        <!--yourapp:showAsAction="ifRoom"-->
-        <!--android:icon="@drawable/icon_toolbar_edit"-->
-        <!--android:title="@string/edit" />-->
-    <!--<item-->
-        <!--android:id="@+id/action_remove"-->
-        <!--yourapp:showAsAction="always"-->
-        <!--android:icon="@drawable/icon_toolbar_remove"-->
-        <!--android:title="@string/remove" />-->
+    <!--android:id="@+id/action_search"-->
+    <!--android:title="@android:string/search_go"-->
+    <!--android:icon="@drawable/icon_toolbar_search"-->
+    <!--yourapp:showAsAction="always|collapseActionView"-->
+    <!--yourapp:actionViewClass="android.support.v7.widget.SearchView" />-->
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_edit_edit_24dp"
+        android:title="@string/edit"
+        yourapp:showAsAction="ifRoom" />
 
 
-    <!--<item-->
-        <!--android:id="@+id/action_sort"-->
-        <!--android:icon="@drawable/ic_low_priority_white_24dp"-->
-        <!--android:title="@string/sort_ab"-->
-        <!--android:orderInCategory="2"-->
-        <!--yourapp:showAsAction="always" />-->
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:title="@string/remove"
+        yourapp:showAsAction="always" />
+
 
     <item
         android:id="@+id/action_search"
-        yourapp:actionViewClass="android.support.v7.widget.SearchView"
-        yourapp:showAsAction="always|collapseActionView"
         android:icon="@drawable/ic_search_white_24dp"
         android:orderInCategory="1"
-        android:title="@android:string/search_go" />
+        android:title="@android:string/search_go"
+        yourapp:actionViewClass="android.support.v7.widget.SearchView"
+        yourapp:showAsAction="always|collapseActionView" />
 
 </menu>
