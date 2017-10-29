@@ -72,4 +72,6 @@ public class Note implements Parcelable {
         parcel.writeByte((byte) (checked ? 1 : 0));
         parcel.writeLong(date.getTime());
     }
+
+
 }

@@ -28,16 +28,16 @@
 
 
     <Button
-        android:id="@+id/button_1"
+        android:id="@+id/button_1_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_above="@+id/button_2"
+        android:layout_above="@+id/button_2_clear"
         android:layout_alignParentEnd="true"
         android:text="1_read"/>
 
     <Button
-        android:id="@+id/button_2"
+        android:id="@+id/button_2_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/floatingActionButtonNoteDone"

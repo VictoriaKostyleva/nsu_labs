@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".ActivityAddNote"
-            android:label="activityAddNote"></activity>
+            android:label="ActivityAddNote"></activity>
     </application>
 
 </manifest>
