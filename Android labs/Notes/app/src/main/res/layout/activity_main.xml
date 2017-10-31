@@ -27,33 +27,24 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:titleEnabled="true">
 
-
-        <!--<android.support.design.widget.CollapsingToolbarLayout-->
-        <!--android:id="@+id/main_collapsing"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
-        <!--app:contentScrim="?attr/colorPrimary"-->
-        <!--app:expandedTitleMarginStart="48dp"-->
-        <!--app:expandedTitleMarginEnd="64dp"-->
-        <!--android:fitsSystemWindows="true">-->
-
             <include
                 android:id="@+id/my_toolbar"
                 layout="@layout/toolbar" />
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="260dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/zhiraf_4"
+                android:layout_marginTop="60dp"
                 app:layout_collapseMode="parallax" />
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,23 +57,17 @@
             android:layout_below="@+id/include"
             android:scrollbars="vertical" />
 
-
-
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="center_vertical|left"
+        android:layout_gravity="center_vertical|start"
         android:layout_marginBottom="@dimen/fab_margin"
         android:src="@drawable/ic_add_white_24dp"
         app:layout_anchor="@+id/swipe_refresh"
         app:layout_anchorGravity="top|right" />
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>

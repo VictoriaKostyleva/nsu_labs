@@ -11,10 +11,7 @@ import com.example.vikacech.notes.myNotes.Note;
 
 import java.util.ArrayList;
 
-
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-
-//    private String[] mDataset;
 
     private ArrayList<Note> notes;
     private OnItemClickListener onItemClickListener;
@@ -43,10 +40,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.mTextView.setText(notes.get(position).getName());
         holder.mCheckBox.setChecked(notes.get(position).isChecked());
         holder.bind(notes.get(position), onItemClickListener);
-
     }
 
-    public void updateNotes(ArrayList<Note> newNotes) {
+    public void updateNotes(ArrayList<Note> newNotes) {//may delete
         notes.clear();
         notes.addAll(newNotes);
     }

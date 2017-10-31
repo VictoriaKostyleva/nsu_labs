@@ -16,11 +16,11 @@ import android.widget.EditText;
 
 import com.example.vikacech.notes.myNotes.Note;
 
-public class ActivityAddNote extends AppCompatActivity implements View.OnClickListener {
+public class ActivityAddNote extends AppCompatActivity {
 
     public static final String KEY_NOTE = "note";
     private static final int RESULT_OK = 0;
-    DBHelper dbHelper;
+    private DBHelper dbHelper;
     private FloatingActionButton fabNoteDone;
     private EditText enterNameNote;
     private EditText enterNote;
@@ -39,93 +39,55 @@ public class ActivityAddNote extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
-
         initToolBar();
         dbHelper = new DBHelper(this);
 
         enterNameNote = (EditText) findViewById(R.id.enter_name_note);
         enterNote = (EditText) findViewById(R.id.enter_note);
         fabNoteDone = (FloatingActionButton) findViewById(R.id.floatingActionButtonNoteDone);
-        fabNoteDone.setOnClickListener(this);
-//        fabNoteDone.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent();
-////                intent.putExtra(KEY_NOTE, new Note(enterNameNote.getText().toString(), enterNote.getText().toString(), false, new Date(System.currentTimeMillis())));
-////                setResult(RESULT_OK, intent);
-////                finish();
-//                //создаем заметку
-//
-//                String nameNote = enterNameNote.getText().toString();
-//                String contentNote = enterNote.getText().toString();
-//
-//                SQLiteDatabase database = dbHelper.getWritableDatabase();
-//
-//                ContentValues contentValues = new ContentValues();
-//
-//                contentValues.put(DBHelper.KEY_NAME, nameNote);
-//                contentValues.put(DBHelper.KEY_CONTEXT, contentNote);
-//
-//                database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
-//                dbHelper.close();
-//
-//            }
-//        });
+        fabNoteDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        button_1_read = (Button) findViewById(R.id.button_1_read);
-        button_1_read.setOnClickListener(this);
-        button_2_clear = (Button) findViewById(R.id.button_2_clear);
-        button_2_clear.setOnClickListener(this);
+                String nameNote = enterNameNote.getText().toString();
+                String contentNote = enterNote.getText().toString();
 
+                SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-
-    }
-
-    private void initToolBar() {
-        toolbar = (Toolbar) findViewById(R.id.add_toolbar);
-        setSupportActionBar(toolbar);
-
-    }
-
-    @Override
-    public void onClick(View view) {
-
-        String nameNote = enterNameNote.getText().toString();
-        String contentNote = enterNote.getText().toString();
-
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-
-        switch (view.getId()) {
-            case R.id.floatingActionButtonNoteDone:
-
+                ContentValues contentValues = new ContentValues();
                 contentValues.put(DBHelper.KEY_NAME, nameNote);
                 contentValues.put(DBHelper.KEY_CONTEXT, contentNote);
-
                 database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
-                break;
-
-            case R.id.button_1_read:
-//                contentValues.put(DBHelper.KEY_NAME, nameNote);
-//                contentValues.put(DBHelper.KEY_CONTEXT, contentNote);
-//
-//                database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
-                //
 
 
+                setResult(0);
+                finish();
+            }
+        });
+
+        button_1_read = (Button) findViewById(R.id.button_1_read);
+        button_1_read.setOnClickListener(new View.OnClickListener() {
+
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+
+            @Override
+            public void onClick(View view) {
                 Cursor cursor = database.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
 
                 if (cursor.moveToFirst()) {
                     int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
                     int nameIndex = cursor.getColumnIndex(DBHelper.KEY_NAME);
                     int noteIndex = cursor.getColumnIndex(DBHelper.KEY_CONTEXT);
+//                    int statusIndex = cursor.getColumnIndex(DBHelper.KEY_CHECKED);
+//                    int dateIndex = cursor.getColumnIndex(DBHelper.KEY_DATE);
 
                     do {
                         Log.d("log", "ID = " + cursor.getInt(idIndex) +
                                 ", name  = " + cursor.getString(nameIndex) +
-                                ", context = " + cursor.getString(noteIndex));
-
+                                ", context  = " + cursor.getString(noteIndex));
+//                                ", status  = " + cursor.getString(statusIndex));
+//                                ", date = " + cursor.getString(dateIndex));
+//                                ", context = " + cursor.getString(noteIndex));
                     } while (cursor.moveToNext());
 
 
@@ -133,19 +95,25 @@ public class ActivityAddNote extends AppCompatActivity implements View.OnClickLi
                     Log.d("log", "no rows");
 
                 cursor.close();
-                break;
-            case R.id.button_2_clear:
+            }
+        });
 
+
+        button_2_clear = (Button) findViewById(R.id.button_2_clear);
+        button_2_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SQLiteDatabase database = dbHelper.getWritableDatabase();
                 database.delete(DBHelper.TABLE_CONTACTS, null, null);
-
-                //
-                break;
-
-        }
-        dbHelper.close();
-
+            }
+        });
     }
 
+    private void initToolBar() {
+        toolbar = (Toolbar) findViewById(R.id.add_toolbar);
+        setSupportActionBar(toolbar);
+
+    }
 
 //    @Override
 //    public boolean onPrepareOptionsMenu(Menu menu) {
@@ -175,5 +143,6 @@ public class ActivityAddNote extends AppCompatActivity implements View.OnClickLi
 //        item.setVisible(false);
 //        return super.onOptionsItemSelected(item);
 //    }
+
 
 }
