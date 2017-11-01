@@ -90,10 +90,6 @@ void *sort_list(void *head) {
     }
 
     while (1) {
-        if(flag == 1) {
-         printf("%s\n", "1");
-          return;
-        }
         list_elem *list = ((head_list_elem *) head)->first;
         list_elem *iteri = NULL;
         sleep(TIMEOUT);
@@ -137,26 +133,14 @@ int main(int argc, char *argv[]) {
     pthread_create(&sort_thread, NULL, sort_list, (void *) (head));
 
     while (1) {
-        // if(flag == 1) {
-        //   printf("%s\n", "2");
-        //   break;
-        // }
 
         cur = (char *) calloc(MAX_LEN, sizeof(char));
         if (cur == NULL) {
             printf("%s\n", "Error in calloc");
             exit(1);
         }
-        if(flag == 1) {
-          printf("%s\n", "2");
-          break;
-        }
 
         fgets(cur, MAX_LEN, stdin);
-        if(flag == 1) {
-          printf("%s\n", "3");
-          break;
-        }
 
         if ('\n' == cur[strlen(cur) - 1]) {//если \n, то \n в строчку класть не будем
             cur[strlen(cur) - 1] = 0;
