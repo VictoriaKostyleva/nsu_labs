@@ -7,16 +7,16 @@
     <!--android:orderInCategory="1"-->
     <!--android:title="@string/search"/>-->
 
-    <item
-        android:id="@+id/settings"
-        android:orderInCategory="2"
-        android:title="@string/settings" />
+    <!--<item-->
+    <!--android:id="@+id/settings"-->
+    <!--android:orderInCategory="2"-->
+    <!--android:title="@string/settings" />-->
 
 
-    <item
-        android:id="@+id/sort_1"
-        android:orderInCategory="2"
-        android:title="@string/sort_1" />
+    <!--<item-->
+    <!--android:id="@+id/sort_1"-->
+    <!--android:orderInCategory="2"-->
+    <!--android:title="@string/sort_1" />-->
 
     <item
         android:id="@+id/sort_2"
@@ -27,6 +27,11 @@
         android:id="@+id/sort_3"
         android:orderInCategory="2"
         android:title="@string/sort_3" />
+
+    <item
+        android:id="@+id/delete_everything"
+        android:orderInCategory="3"
+        android:title="@string/delete_evertything" />
 
 
     <!--<item-->

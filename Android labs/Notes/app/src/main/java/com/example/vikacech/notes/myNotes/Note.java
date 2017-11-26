@@ -21,8 +21,15 @@ public class Note implements Parcelable {
     private String content;
     private boolean checked;
     private Date date;
+    private static int id;
 
-    public Note(String name, String context, boolean checked, Date date) {
+
+    public Note() {
+        date = new Date(System.currentTimeMillis());
+    }
+
+    public Note(int id, String name, String context, boolean checked, Date date) {
+        this.id = id;
         this.name = name;
         this.content = context;
         this.checked = checked;
@@ -58,6 +65,10 @@ public class Note implements Parcelable {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public static int getId() {
+        return id;
     }
 
     @Override

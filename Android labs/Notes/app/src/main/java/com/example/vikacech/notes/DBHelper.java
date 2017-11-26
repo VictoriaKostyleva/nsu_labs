@@ -1,6 +1,7 @@
 package com.example.vikacech.notes;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -34,5 +35,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + TABLE_CONTACTS);
 
         onCreate(db);
+    }
+
+    public void deleteRow(SQLiteDatabase db, int value)//TODO
+    {
+        db.execSQL("DELETE FROM " + TABLE_CONTACTS+ " WHERE " + KEY_ID + "='" + value + "'");
+//        db.close();
+    }
+
+
+    public Cursor sortingByName(SQLiteDatabase db) {
+        String selectQuery = "SELECT * FROM " + TABLE_CONTACTS + " ORDER BY name(KEY_NAME) DESC";
+        return db.rawQuery(selectQuery, null);
     }
 }

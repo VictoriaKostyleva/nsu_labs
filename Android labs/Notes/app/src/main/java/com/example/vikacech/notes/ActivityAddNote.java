@@ -27,6 +27,7 @@ public class ActivityAddNote extends AppCompatActivity {
     private Toolbar toolbar;
     private Button button_1_read;
     private Button button_2_clear;
+    final int NOTE_ADDED = 5;
 
     static Intent newIntent(Context context, Note note) {
         Intent intent = new Intent(context, ActivityAddNote.class);
@@ -60,12 +61,12 @@ public class ActivityAddNote extends AppCompatActivity {
                 database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
 
 
-                setResult(0);
+                setResult(NOTE_ADDED);
                 finish();
             }
         });
 
-        button_1_read = (Button) findViewById(R.id.button_1_read);
+        /*button_1_read = (Button) findViewById(R.id.button_1_read);
         button_1_read.setOnClickListener(new View.OnClickListener() {
 
             SQLiteDatabase database = dbHelper.getWritableDatabase();
@@ -96,17 +97,17 @@ public class ActivityAddNote extends AppCompatActivity {
 
                 cursor.close();
             }
-        });
+        });*/
 
 
-        button_2_clear = (Button) findViewById(R.id.button_2_clear);
-        button_2_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SQLiteDatabase database = dbHelper.getWritableDatabase();
-                database.delete(DBHelper.TABLE_CONTACTS, null, null);
-            }
-        });
+//        button_2_clear = (Button) findViewById(R.id.button_2_clear);
+//        button_2_clear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SQLiteDatabase database = dbHelper.getWritableDatabase();
+//                database.delete(DBHelper.TABLE_CONTACTS, null, null);
+//            }
+//        });
     }
 
     private void initToolBar() {

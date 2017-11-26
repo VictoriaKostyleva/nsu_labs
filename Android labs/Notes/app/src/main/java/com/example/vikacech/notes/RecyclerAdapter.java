@@ -1,5 +1,6 @@
 package com.example.vikacech.notes;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.example.vikacech.notes.myNotes.Note;
 
 import java.util.ArrayList;
+
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -43,13 +45,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public void updateNotes(ArrayList<Note> newNotes) {//may delete
+        final NoteListCallback diffCallback = new NoteListCallback(this.getNotes(), newNotes);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
         notes.clear();
         notes.addAll(newNotes);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public ArrayList<Note> getNotes() {
         return notes;
     }
+
+    public void deleteNote(int id) {//TODO
+        notes.remove(id);
+    }
+
+    public void addNote(Note e) {
+        notes.add(e);
+    }
+
 
     // Возвращает размер данных (вызывается layout manager-ом)
     @Override
