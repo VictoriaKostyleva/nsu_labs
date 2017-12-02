@@ -18,6 +18,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private ArrayList<Note> notes;
     private OnItemClickListener onItemClickListener;
 
+    public RecyclerAdapter(ArrayList<Note> dataset) {//TODO
+        notes = dataset;
+    }
+
     public RecyclerAdapter(ArrayList<Note> dataset, OnItemClickListener onItemClickListener) {
         notes = dataset;
         this.onItemClickListener = onItemClickListener;
@@ -40,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
         holder.mTextView.setText(notes.get(position).getName());
-        holder.mCheckBox.setChecked(notes.get(position).isChecked());
+//        holder.mCheckBox.setChecked(notes.get(position).isChecked());
         holder.bind(notes.get(position), onItemClickListener);
     }
 
@@ -86,7 +90,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             super(v);
             view = v;
             mTextView = (TextView) v.findViewById(R.id.info_text);
-            mCheckBox = (CheckBox) v.findViewById(R.id.check_box);
+//            mCheckBox = (CheckBox) v.findViewById(R.id.check_box);
         }
 
         public void bind(final Note note, final OnItemClickListener listener) {

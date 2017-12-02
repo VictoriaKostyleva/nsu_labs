@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db;
 
     FloatingActionButton fabAdd;
+    ArrayList<Note> notes;
     private DBHelper dbHelper;
     private Toolbar toolbar;
     private RecyclerView mRecyclerView;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mCard;
     private MenuItem searchMenuItem;
     private Menu menu;
-    ArrayList<Note> notes;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,60 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
         cursor.close();
 
-
-        /*DBHelper.init();
-        * ArrayList notes = new ArrayList();
-        * Note note = new Note(DBHelper.getAll());
-        * notes.add(note);
-        *
-        * //data
-        * //search
-        * //sort
-        * backpress - передавать результат, чтобы он не выводил тост+
-        * поменять иконку+
-        * */
-
-
         mRecyclerView = findViewById(R.id.my_recycler_view);
 
         // используем linear layout manager
         mCard = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mCard);
 
-        // создаем адаптер
-        mAdapter = new RecyclerAdapter(notes, new RecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Note item) {
-                //Toast.makeText(MainActivity.this, "Item clicked!", Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder dialogDelete = new AlertDialog.Builder(MainActivity.this);
-
-                dialogDelete.setCancelable(true)
-                        .setTitle("Are you sure?")
-                        .setNegativeButton("Delete",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //del
-
-
-                                        dbHelper.deleteRow(db, Note.getId());//TODO
-
-
-                                        dialog.cancel();
-
-
-//                                        mAdapter.deleteNote(Note.getId());//
-//                                        mAdapter.updateNotes(notes);//
-                                        mAdapter.notifyDataSetChanged();//TODO check
-                                    }
-                                });
-                AlertDialog alert = dialogDelete.create();
-                alert.show();
-//                Intent intent = new Intent(this, ActivityAddNote.class);
-//                startActivityForResult(intent, 1);
-
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
+        initRecyclerView(notes);
 
         initToolBar();
 //        createCards();
@@ -157,6 +111,81 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        cursor.close();
 //        dbHelper.close();
+
+    }
+
+    @Override
+    protected void onResume() {
+
+//        for(int i=0; i<recyclerView.getSize(); i++) {
+//            recyclerView.delete(i);
+//        }
+
+        dbHelper = new DBHelper(this);
+//        final ArrayList<Note> notes = new ArrayList<>();
+        notes = new ArrayList<>();
+
+
+        db = dbHelper.getWritableDatabase();
+        //вывод всех записей
+        Cursor cursor = db.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
+            int nameIndex = cursor.getColumnIndex(DBHelper.KEY_NAME);
+            int noteIndex = cursor.getColumnIndex(DBHelper.KEY_CONTEXT);
+//                    int statusIndex = cursor.getColumnIndex(DBHelper.KEY_CHECKED);
+//                    int dateIndex = cursor.getColumnIndex(DBHelper.KEY_DATE);
+            do {
+                Note note = new Note(cursor.getInt(idIndex), cursor.getString(nameIndex), cursor.getString(noteIndex), false, null);
+                notes.add(note);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        mRecyclerView = findViewById(R.id.my_recycler_view);
+
+        // используем linear layout manager
+        mCard = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mCard);
+
+        initRecyclerView(notes);
+
+        super.onResume();
+    }
+
+    private void initRecyclerView(ArrayList<Note> array) {
+
+        mAdapter = new RecyclerAdapter(array, new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(final Note item) {
+                AlertDialog.Builder dialogDelete = new AlertDialog.Builder(MainActivity.this);
+
+                dialogDelete.setCancelable(true)
+                        .setTitle("Are you sure?")
+                        .setNegativeButton("Delete",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //del
+
+
+//                                        dbHelper.deleteRow(db, item);//
+
+
+                                        dialog.cancel();
+
+                                        notes.remove(item);
+
+                                        mAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                AlertDialog alert = dialogDelete.create();
+                alert.show();
+
+            }
+        });
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 
@@ -186,38 +215,28 @@ public class MainActivity extends AppCompatActivity {
             if (data != null) {
                 super.onActivityResult(requestCode, resultCode, data);
 
-        /*if(data == null) {
-            return;
-        }
-        String name = data.getStringExtra("name");*/
-//        Note note = data.getParcelableExtra(ActivityAddNote.KEY_NOTE);
-//        mAdapter.getNotes().add(note);
-//        mAdapter.updateNotes(mAdapter.getNotes());
-
-
-                /////////////////////////////////////////////////////////////////////////////////////
-                db = dbHelper.getWritableDatabase();
-                //вывод всех записей
-                Cursor c = db.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
-
-                int idIndex = 0;
-                int nameIndex = 0;
-                int noteIndex = 0;
-
-                if (c.moveToFirst()) {
-                    idIndex = c.getColumnIndex(DBHelper.KEY_ID);
-                    nameIndex = c.getColumnIndex(DBHelper.KEY_NAME);
-                    noteIndex = c.getColumnIndex(DBHelper.KEY_CONTEXT);
-
-
-                    do {
-                        // Note note = new Note(cursor.getInt(idIndex), cursor.getString(nameIndex), cursor.getString(noteIndex), false, null);
-                    } while (c.moveToNext());
-                }
-
-                c.close();
-
-                mAdapter.getNotes().add(new Note(c.getInt(idIndex), c.getString(nameIndex), c.getString(noteIndex), false, null));
+//                db = dbHelper.getWritableDatabase();
+//                //вывод всех записей
+//                Cursor c = db.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
+//
+//                int idIndex = 0;
+//                int nameIndex = 0;
+//                int noteIndex = 0;
+//
+//                if (c.moveToFirst()) {
+//                    idIndex = c.getColumnIndex(DBHelper.KEY_ID);
+//                    nameIndex = c.getColumnIndex(DBHelper.KEY_NAME);
+//                    noteIndex = c.getColumnIndex(DBHelper.KEY_CONTEXT);
+//
+//
+//                    do {
+//                        // Note note = new Note(cursor.getInt(idIndex), cursor.getString(nameIndex), cursor.getString(noteIndex), false, null);
+//                    } while (c.moveToNext());
+//                }
+//
+//                c.close();
+//
+//                mAdapter.getNotes().add(new Note(c.getInt(idIndex), c.getString(nameIndex), c.getString(noteIndex), false, null));
 
 
                 mAdapter.notifyItemInserted(mAdapter.getNotes().size() - 1);//try
@@ -226,97 +245,81 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Note added", Toast.LENGTH_SHORT).show();
                 }
             }
-        }//
+        }
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);//+
+        getMenuInflater().inflate(R.menu.menu, menu);
         searchMenuItem = menu.findItem(R.id.action_search);
-        return super.onCreateOptionsMenu(menu);
 
 
+        SearchManager searchManager = (SearchManager) getSystemService(this.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
 
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String s) {
+                        ArrayList<Note> searhItems = new ArrayList<>();
+                        for (Note item : notes) {
+                            if (compareString(item.getName(), s)) {
+                                searhItems.add(item);
+                            }
+                        }
+
+                        initRecyclerView(searhItems);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String s) {
+                        ArrayList<Note> searhItems = new ArrayList<>();
+                        int i = 0;
+                        for (Note item : notes) {
+                            if (compareString(item.getName(), s)) {
+                                searhItems.add(item);
+                            }
+                        }
 
 
+                        ArrayList<String> templist = new ArrayList<String>();
+                        for (Note item : searhItems) {
 
+                            templist.add(item.getName());
 
-//        SearchManager searchManager = ( SearchManager ) getSystemService( this.SEARCH_SERVICE );
-//        SearchView searchView =    ( SearchView ) menu.findItem( R.id.action_search).getActionView();
-//        searchView.setSearchableInfo( searchManager.getSearchableInfo( getComponentName() ) );
-//
-//
-//        searchView.setOnQueryTextListener(
-//                new SearchView.OnQueryTextListener()
-//                {
-//                    @Override
-//                    public boolean onQueryTextSubmit( String s ) {
-//                        ArrayList<Note> searhItems = new ArrayList<>();////
-//                        for (Note item: notes) {
-//                            if (item.getName().equals(s)) {
-//                                searhItems.add(item);
-//                            }
-//                        }
-//
-//                        initRecyclerView(searhItems);
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onQueryTextChange( String s )
-//                    {
-//                        ArrayList<Note> searhItems = new ArrayList<>();
-//                        int i = 0;
-//                        for (Note item: notes) {
-//                            if (compareString(item.getName(), s)) {
-//                                searhItems.add(item);
-//                            }
-//                        }
-//
-//                        initRecyclerView(searhItems);
-//                        return false;
-//                    }
-//
-//                }
-//        );
-//        return true;
+                        }
+
+                        initRecyclerView(searhItems);
+                        mRecyclerView.setAdapter(mAdapter);
+
+                        return false;
+                    }
+
+                }
+        );
+        return true;
     }
 
-//    private void initRecyclerView(ArrayList<Note> items) {
-//        LinearLayoutManager verticalLinearLayoutManager;
-//        verticalLinearLayoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(verticalLinearLayoutManager);
-//
-//        MyRecyclerAdapter adapter = new MyRecyclerAdapter(this, items);
-//        recyclerView.setAdapter(adapter);
-//    }
-
-
-    private boolean compareString(String main, String search){
-        if(search.length() > main.length()){
+    private boolean compareString(String main, String search) {
+        if (search.length() > main.length()) {
             return false;
         }
-        for (int i = 0;  i < search.length(); ++i){
-            if(!(main.charAt(i) == search.charAt(i))){
+        for (int i = 0; i < search.length(); i++) {
+            if (!(main.charAt(i) == search.charAt(i))) {
                 return false;
             }
         }
         return true;
     }
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
-
-        if (id == R.id.sort_2) {
-            Toast.makeText(MainActivity.this, "Sorting is going on!!!", Toast.LENGTH_LONG).show();
-//            dbHelper.sortingByName(db);
-        }
 
         if (id == R.id.delete_everything) {
             AlertDialog.Builder dialogDelete = new AlertDialog.Builder(MainActivity.this);

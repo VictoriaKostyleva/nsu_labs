@@ -24,28 +24,6 @@
         android:hint="@string/enter_note"
         android:inputType="textCapSentences|textAutoCorrect" />
 
-
-    <!--<Button-->
-        <!--android:id="@+id/button_1_read"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@+id/button_2_clear"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:text="1_read" />-->
-
-    <!--<Button-->
-        <!--android:id="@+id/button_2_clear"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@+id/floatingActionButtonNoteDone"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:text="2_clear" />-->
-
-    <!--android:inputType="textCapWords"-->
-    <!--/>-->
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonNoteDone"
         android:layout_width="wrap_content"

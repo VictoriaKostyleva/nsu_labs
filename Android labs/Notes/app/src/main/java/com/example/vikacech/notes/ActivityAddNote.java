@@ -65,49 +65,6 @@ public class ActivityAddNote extends AppCompatActivity {
                 finish();
             }
         });
-
-        /*button_1_read = (Button) findViewById(R.id.button_1_read);
-        button_1_read.setOnClickListener(new View.OnClickListener() {
-
-            SQLiteDatabase database = dbHelper.getWritableDatabase();
-
-            @Override
-            public void onClick(View view) {
-                Cursor cursor = database.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
-
-                if (cursor.moveToFirst()) {
-                    int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
-                    int nameIndex = cursor.getColumnIndex(DBHelper.KEY_NAME);
-                    int noteIndex = cursor.getColumnIndex(DBHelper.KEY_CONTEXT);
-//                    int statusIndex = cursor.getColumnIndex(DBHelper.KEY_CHECKED);
-//                    int dateIndex = cursor.getColumnIndex(DBHelper.KEY_DATE);
-
-                    do {
-                        Log.d("log", "ID = " + cursor.getInt(idIndex) +
-                                ", name  = " + cursor.getString(nameIndex) +
-                                ", context  = " + cursor.getString(noteIndex));
-//                                ", status  = " + cursor.getString(statusIndex));
-//                                ", date = " + cursor.getString(dateIndex));
-//                                ", context = " + cursor.getString(noteIndex));
-                    } while (cursor.moveToNext());
-
-
-                } else
-                    Log.d("log", "no rows");
-
-                cursor.close();
-            }
-        });*/
-
-
-//        button_2_clear = (Button) findViewById(R.id.button_2_clear);
-//        button_2_clear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                SQLiteDatabase database = dbHelper.getWritableDatabase();
-//                database.delete(DBHelper.TABLE_CONTACTS, null, null);
-//            }
-//        });
     }
 
     private void initToolBar() {
@@ -115,35 +72,4 @@ public class ActivityAddNote extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
     }
-
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        MenuItem edit = menu.findItem(R.id.action_edit);
-//        edit.setVisible(true);
-//
-//        MenuItem delete = menu.findItem(R.id.action_delete);
-//        delete.setVisible(true);
-//
-//        MenuItem search = menu.findItem(R.id.action_search);
-//        delete.setVisible(false);
-//
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-//dbHelper.close();
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu, menu);
-//        return super.onCreateOptionsMenu(menu);//
-//    }
-//
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        item.setVisible(false);
-//        return super.onOptionsItemSelected(item);
-//    }
-
-
 }

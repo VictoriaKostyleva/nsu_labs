@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.vikacech.notes.myNotes.Note;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
@@ -26,8 +28,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL("create table " + TABLE_CONTACTS + "(" + KEY_ID + " integer primary key," + KEY_NAME + "  text," + KEY_CONTEXT + " text" + ")");
 
-//        db.execSQL("create table " + TABLE_CONTACTS + "(" + KEY_ID  + " integer primary key," + KEY_NAME + "  text," + KEY_CONTEXT + " text," + KEY_CHECKED + " text," + ")");
-
     }
 
     @Override
@@ -37,15 +37,16 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void deleteRow(SQLiteDatabase db, int value)//TODO
+    public void deleteRow(SQLiteDatabase db, Note note)//TODO
     {
+        int value = note.getId();
         db.execSQL("DELETE FROM " + TABLE_CONTACTS+ " WHERE " + KEY_ID + "='" + value + "'");
 //        db.close();
     }
 
 
-    public Cursor sortingByName(SQLiteDatabase db) {
-        String selectQuery = "SELECT * FROM " + TABLE_CONTACTS + " ORDER BY name(KEY_NAME) DESC";
-        return db.rawQuery(selectQuery, null);
-    }
+//    public Cursor sortingByName(SQLiteDatabase db) {
+//        String selectQuery = "SELECT * FROM " + TABLE_CONTACTS + " ORDER BY name DESC";
+//        return db.rawQuery(selectQuery, null);
+//    }
 }
