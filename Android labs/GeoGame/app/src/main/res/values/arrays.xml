@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="listArray">
+        <item>NORMAL</item>
+        <item>HYBRID</item>
+        <item>SATELLITE\nmaps with no labels</item>
+        <item>TERRAIN</item>
+    </string-array>
+
+    <string-array name="listValues">
+        <item>MAP_TYPE_NORMAL</item>
+        <item>MAP_TYPE_HYBRID</item>
+        <item>MAP_TYPE_SATELLITE</item>
+        <item>MAP_TYPE_TERRAIN</item>
+    </string-array>
+</resources>
