@@ -3,11 +3,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.System.exit;
 
@@ -36,22 +35,25 @@ public class Server {
 
     private void startWork() {
         try {
-            taskMap = Collections.synchronizedMap(new HashMap<>());
-            timeMap = Collections.synchronizedMap(new HashMap<>());
+//            taskMap = Collections.synchronizedMap(new HashMap<>());
+            taskMap = new ConcurrentHashMap<String, Task>();
+            timeMap = new ConcurrentHashMap<String, Long>();
             tasks = new ArrayBlockingQueue<>((int) Math.pow(CODES_COUNT, LENGTH));
             makeTasks();
-            Thread acceptor = new Thread(new AcceptorRunnable());
+            Thread acceptor = new Thread(new Acceptor());
             acceptor.start();
-            Thread timeChecker = new Thread(new TimeCheckerRunnable());
+            Thread timeChecker = new Thread(new TimeChecker());
             timeChecker.start();
             System.out.println("Server started working");
+
 
         } catch (InterruptedException e) {
             System.out.println("Interrupted");
         }
     }
-    
-    private void makeTasks() throws InterruptedException {
+
+
+    private void makeTasks() throws InterruptedException {//пояснить как делаются задачки
         int tasksSize = (int) Math.pow(CODES_COUNT, LENGTH);
         long rangeSize = 1;
         int power = 0;
@@ -69,7 +71,7 @@ public class Server {
         }
     }
 
-    class AcceptorRunnable implements Runnable {
+    class Acceptor implements Runnable {
         @Override
         public void run() {
             ServerSocket serverSocket;
@@ -80,8 +82,13 @@ public class Server {
                     try {
                         socket = serverSocket.accept();
                         System.out.println("New connection: " + socket.getInetAddress().getHostAddress());
-                        ConnectedClient connectedClient = new ConnectedClient(socket);
-                        connectedClient.run();
+
+
+                        Thread connectedClient = new Thread(new ConnectedClient(socket));
+                        connectedClient.start();
+
+//                        ConnectedClient connectedClient = new ConnectedClient(socket);
+//                        connectedClient.run();//! в отдельном потоке сделать
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -92,7 +99,7 @@ public class Server {
         }
     }
 
-    class TimeCheckerRunnable implements Runnable {
+    class TimeChecker implements Runnable {
         @Override
         public void run() {
             try {
@@ -103,7 +110,8 @@ public class Server {
                         if (timeMap.get(key) - currentTime > MAX_TIME_DIFF) {
                             Task task = taskMap.get(key);
                             tasks.put(task);
-                            timeMap.remove(key);
+                            timeMap.remove(key);//! так нельзя удалять. использовать итератор
+
                         }
                     }
 
@@ -133,7 +141,7 @@ public class Server {
                      DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream())) {
 
                     String uuidString = dataInputStream.readUTF();
-                    System.out.println("Read uuid: " + uuidString);
+                    System.out.println("Read client uuid: " + uuidString);
 
                     if(workIsDone) {
                         if(timeMap.containsKey(uuidString)) {
@@ -147,7 +155,7 @@ public class Server {
                     if (!taskMap.containsKey(uuidString)) {
                         System.out.println("New client");
                         dataOutputStream.writeUTF(hashString);
-                        System.out.println("Wrote hash: " + hashString);
+//                        System.out.println("Wrote hash: " + hashString);
                     } else {
                         System.out.println("Old client");
                         String message = dataInputStream.readUTF();
@@ -160,14 +168,8 @@ public class Server {
                             dataOutputStream.writeUTF("STOPWORK");
                             timeMap.remove(uuidString);
 
-                            while(!timeMap.isEmpty()) {
-
-                                System.out.println("Waiting for others clients");
-                                Thread.sleep(SLEEP_TIME);
-                            }
-
                             return;
-                        } else if (message.equals("FAIL")) {
+                        } else if (message.equals("NO SOLUTION")) {
                             System.err.println(uuidString + " didn't find the solution");
                         }
                     }

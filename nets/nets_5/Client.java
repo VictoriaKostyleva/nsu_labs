@@ -71,14 +71,13 @@ public class Client {
              DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream())) {
 
             dataOutputStream.writeUTF(uuid.toString());
-//            System.out.println("Wrote uuid: " + uuid.toString());
 
             if (hash == null) {
                 System.out.println("First connection");
                 hash = dataInputStream.readUTF();
                 System.out.println("Read hash: " + hash);
             } else {
-                dataOutputStream.writeUTF("FAIL");
+                dataOutputStream.writeUTF("NO SOLUTION");
             }
 
             instruction = dataInputStream.readUTF();
