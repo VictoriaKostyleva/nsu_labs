@@ -21,10 +21,10 @@ class MyAPI(vk.API):
 			except VkAPIError as vke:
 				print("https://vk.com/dev/errors: {}!".format(vke.code))
 
-				if vke.code == 6:
+				if vke.code == 6:#too many queries
 					sleep(0.5)
 					continue
-				elif vke.code == 18:
+				elif vke.code == 18:#the user is deleted
 					return {"count": 0, "items": []}
 
 				raise vke
@@ -109,7 +109,7 @@ def search_deep(_id, deep, chain=None):
 	if deep > 0:
 		fr = api.get_friends(_id)
 		for fid in fr:
-			if (fid, _id) in _pairs:
+			if (fid, _id) in _pairs:#for not checking one user two times
 				continue
 
 			if fid in friends:
@@ -140,6 +140,22 @@ print(chain)
 sleep(1)
 for info in api.users.get(user_ids=chain):
 	print(info)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
