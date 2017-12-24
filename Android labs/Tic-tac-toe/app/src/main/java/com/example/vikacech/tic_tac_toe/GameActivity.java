@@ -1,7 +1,6 @@
 package com.example.vikacech.tic_tac_toe;
 
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,12 +28,12 @@ public class GameActivity extends AppCompatActivity {
     private String[][] moves= new String[fieldRow + 1][fieldRow + 1];//масиив ходов
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_main);
 
         database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("game");//ТУТ ВРОДЕ МОЖНО ОПРЕДЕЛЯТЬ ВЕТКУ
+        DatabaseReference ref = database.getReference();//ТУТ ВРОДЕ МОЖНО ОПРЕДЕЛЯТЬ ВЕТКУ
         ref.child("currentPlayer").setValue("X");
 
         ChildEventListener childEventListener = new ChildEventListener() {
@@ -123,6 +122,8 @@ public class GameActivity extends AppCompatActivity {
             layout.addView(row, new TableLayout.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
         }
+
+//Button button = (Button) findViewById(R.id.button);
 
     }
 
