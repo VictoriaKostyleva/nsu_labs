@@ -21,6 +21,8 @@
 
         <activity android:name=".GameActivity"></activity>
 
+        <activity android:name=".WaitActivity"></activity>
+
 
 
     </application>

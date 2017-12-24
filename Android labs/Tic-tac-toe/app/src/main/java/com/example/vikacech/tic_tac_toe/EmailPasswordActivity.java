@@ -197,11 +197,6 @@ public class EmailPasswordActivity extends BaseActivity implements
 
             mStatusTextView.setText("HOOORAYY!");
 
-//            finish();
-
-
-//            Intent intent = new Intent(this, GameActivity.class);
-//            startActivity(intent);
             findViewById(R.id.play_with_user).setVisibility(View.VISIBLE);
 
 
@@ -222,14 +217,6 @@ public class EmailPasswordActivity extends BaseActivity implements
 
     @Override
     public void onClick(View v) {
-//        int i = v.getId();
-//        if (i == R.id.email_create_account_button) {
-//            createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
-//        } else if (i == R.id.email_sign_in_button) {
-//            signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-//        } else if (i == R.id.sign_out_button) {
-//            signOut();
-//        }
 
         int i = v.getId();
         switch(i) {
@@ -243,7 +230,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                 signOut();
                 break;
             case R.id.play_with_user:
-                Intent intent = new Intent(this, GameActivity.class);
+                Intent intent = new Intent(this, WaitActivity.class);
                 startActivity(intent);
                 break;
 

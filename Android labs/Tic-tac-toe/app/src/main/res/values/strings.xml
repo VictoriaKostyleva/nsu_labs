@@ -76,4 +76,5 @@
     <string name="email_fmt">Email: %s</string>
 
     <string name="play_with_user">Play with user</string>
+    <string name="search_opponent_please_wait">Searching for an opponent, please wait :)</string>
 </resources>

@@ -1,20 +1,21 @@
 package com.example.vikacech.tic_tac_toe.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameOnline {
     private WaitForUser game;
     private int turn = 1;
-    private List<Integer> list = new ArrayList<>();
+    private String field[][];
 
     public GameOnline() {
     }
 
     public GameOnline(WaitForUser game) {
         this.game = game;
-        for (int i = 0; i < 9; ++i) {
-            list.add(0);
+        for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            field = null;
+        }
         }
     }
 
@@ -34,11 +35,11 @@ public class GameOnline {
         this.game = game;
     }
 
-    public List<Integer> getList() {
-        return list;
+    public String[][] getField() {
+        return field;
     }
 
-    public void setList(List<Integer> list) {
-        this.list = list;
+    public void setField(String[][] field) {
+        this.field = field;
     }
 }
