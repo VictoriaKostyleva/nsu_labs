@@ -190,15 +190,10 @@ public class EmailPasswordActivity extends BaseActivity implements
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            //TODO
 //            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
 //            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
-
-            mStatusTextView.setText("HOOORAYY!");
-
             findViewById(R.id.play_with_user).setVisibility(View.VISIBLE);
-
 
             findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
             findViewById(R.id.email_password_fields).setVisibility(View.GONE);
@@ -211,7 +206,6 @@ public class EmailPasswordActivity extends BaseActivity implements
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_button).setVisibility(View.GONE);
             findViewById(R.id.play_with_user).setVisibility(View.GONE);
-
         }
     }
 

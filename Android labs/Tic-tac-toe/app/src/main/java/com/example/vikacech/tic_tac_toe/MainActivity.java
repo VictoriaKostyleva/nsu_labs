@@ -20,16 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnPlay = (Button) findViewById(R.id.button_play);
         btnPlay.setOnClickListener(this);
-//        btnPlay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(this, EmailPasswordActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
-
-
     }
 
     @Override
@@ -49,8 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == SIGN_IN_RESULT) {
             System.out.println("back here");
 
-//            Intent intent = new Intent(this, GameActivity.class);
-//            startActivity(intent);
         }
 
     }
