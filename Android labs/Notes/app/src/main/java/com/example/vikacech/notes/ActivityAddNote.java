@@ -44,6 +44,7 @@ public class ActivityAddNote extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+        id_check = -1;
 
         initToolBar();
         dbHelper = new DBHelper(this);
@@ -56,7 +57,7 @@ public class ActivityAddNote extends AppCompatActivity {
         enterNameNote = (EditText) findViewById(R.id.enter_name_note);
         enterNote = (EditText) findViewById(R.id.enter_note);
 
-        if(id_check != -1) {
+        if((id_check != -1)&&(id_check != 0)) {
 
             db = dbHelper.getWritableDatabase();
             enterNameNote.setText(dbHelper.getData(db, id_check, dbHelper.KEY_NAME));
@@ -72,20 +73,21 @@ public class ActivityAddNote extends AppCompatActivity {
                 String nameNote = enterNameNote.getText().toString();
                 String contentNote = enterNote.getText().toString();
 
-                SQLiteDatabase database = dbHelper.getWritableDatabase();
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(DBHelper.KEY_NAME, nameNote);
                 contentValues.put(DBHelper.KEY_CONTEXT, contentNote);
 
-                if(id_check == -1) {
-
-                    database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
+                if((id_check == -1)||(id_check == 0)) {
+                    DBHelper.addNote(db, contentValues);
                 }
 
                 else {
                     String str = DBHelper.KEY_ID + "=" + id_check;
-                    database.update(DBHelper.TABLE_CONTACTS, contentValues, str ,null);
+
+                    DBHelper.updateNote(db, contentValues, str);
+//                    db.update(DBHelper.TABLE_CONTACTS, contentValues, str ,null);
                 }
 
                 setResult(NOTE_ADDED);

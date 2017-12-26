@@ -1,5 +1,6 @@
 package com.example.vikacech.notes;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -53,5 +54,14 @@ public class DBHelper extends SQLiteOpenHelper {
         System.out.println(res);
         return res;
     }
+
+    public static void addNote(SQLiteDatabase db, ContentValues contentValues) {
+        db.insert(TABLE_CONTACTS, null, contentValues);
+    }
+
+    public static void updateNote(SQLiteDatabase db, ContentValues contentValues, String str) {
+        db.update(TABLE_CONTACTS, contentValues, str ,null);
+    }
+
 
 }
