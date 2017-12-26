@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/enter_name_note"
         android:hint="@string/enter_note"
-        android:inputType="textCapSentences|textAutoCorrect" />
+        android:inputType="textMultiLine|textAutoCorrect" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonNoteDone"

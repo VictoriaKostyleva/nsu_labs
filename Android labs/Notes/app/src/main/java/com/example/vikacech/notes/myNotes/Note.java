@@ -21,7 +21,7 @@ public class Note implements Parcelable {
     private String content;
     private boolean checked;
     private Date date;
-    private static int id;
+    private int id;
 
 
     public Note() {
@@ -67,7 +67,7 @@ public class Note implements Parcelable {
         this.checked = checked;
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
@@ -81,7 +81,7 @@ public class Note implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(content);
         parcel.writeByte((byte) (checked ? 1 : 0));
-        parcel.writeLong(date.getTime());
+//        parcel.writeLong(date.getTime());
     }
 
 

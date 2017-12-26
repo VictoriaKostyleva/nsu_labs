@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.vikacech.notes.myNotes.Note;
 
@@ -25,13 +26,17 @@ public class ActivityAddNote extends AppCompatActivity {
     private EditText enterNameNote;
     private EditText enterNote;
     private Toolbar toolbar;
-    private Button button_1_read;
-    private Button button_2_clear;
     final int NOTE_ADDED = 5;
+
+    SQLiteDatabase db;
+
+    int id_check = -1; //TODO not static
 
     static Intent newIntent(Context context, Note note) {
         Intent intent = new Intent(context, ActivityAddNote.class);
         intent.putExtra("NOTE", note);
+        intent.putExtra("ID", note.getId());
+
         return intent;
     }
 
@@ -43,8 +48,22 @@ public class ActivityAddNote extends AppCompatActivity {
         initToolBar();
         dbHelper = new DBHelper(this);
 
+
+        id_check = getIntent().getIntExtra("ID", -1);
+//        Toast.makeText(getApplicationContext(), "Id: " + id_check, Toast.LENGTH_SHORT).show();
+
+
         enterNameNote = (EditText) findViewById(R.id.enter_name_note);
         enterNote = (EditText) findViewById(R.id.enter_note);
+
+        if(id_check != -1) {
+
+            db = dbHelper.getWritableDatabase();
+            enterNameNote.setText(dbHelper.getData(db, id_check, dbHelper.KEY_NAME));
+            enterNote.setText(dbHelper.getData(db, id_check, dbHelper.KEY_CONTEXT));
+        }
+
+
         fabNoteDone = (FloatingActionButton) findViewById(R.id.floatingActionButtonNoteDone);
         fabNoteDone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +77,16 @@ public class ActivityAddNote extends AppCompatActivity {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(DBHelper.KEY_NAME, nameNote);
                 contentValues.put(DBHelper.KEY_CONTEXT, contentNote);
-                database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
 
+                if(id_check == -1) {
+
+                    database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
+                }
+
+                else {
+                    String str = DBHelper.KEY_ID + "=" + id_check;
+                    database.update(DBHelper.TABLE_CONTACTS, contentValues, str ,null);
+                }
 
                 setResult(NOTE_ADDED);
                 finish();
