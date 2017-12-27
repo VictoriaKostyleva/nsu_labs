@@ -1,0 +1,57 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+    <!--<style name="AppTheme" parent="AppTheme.Base">-->
+        <!-- Customize your theme here. -->
+
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+
+    <!--Toolbar style-->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="windowActionBar">false</item>
+        <item name="actionMenuTextColor">@color/secondary_text</item>
+    </style>
+
+
+    <style name="AppTheme.Toolbar" parent="AppTheme">
+        <item name="android:textColorPrimaryInverse">@color/secondary_text</item>
+        <item name="actionMenuTextColor">@color/divider</item>
+        <item name="android:textColorPrimary">@color/title</item>
+        <item name="android:textColorSecondary">@color/menu</item>
+    </style>
+
+    <style name="AppTheme.Toolbar.Popup" parent="ThemeOverlay.AppCompat">
+        <item name="android:textColorPrimary">@color/secondary_text</item>
+        <item name="android:textColorPrimaryInverse">@color/title</item>
+        <item name="android:colorBackground">@color/divider</item>
+    </style>
+
+
+
+
+        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+            <item name="colorPrimaryDark">@color/primary</item>
+            <item name="searchViewStyle">@style/AppSearchViewStyle</item>
+        </style>
+
+        <style name="AppSearchViewStyle" parent="Widget.AppCompat.SearchView">
+            <item name="queryBackground">@color/primary</item>
+            <!--@android:color/black-->
+            <item name="searchIcon">@drawable/ic_search_white_24dp</item>
+            <item name="closeIcon">@drawable/ic_clear_white_24dp</item>
+            <item name="queryHint">@string/search_hint</item>
+            <item name="android:imeActionId">6</item>
+        </style>
+
+
+    <!--<item name="android:actionMenuTextColor"-->
+
+
+</resources>

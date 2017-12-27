@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/add_toolbar"
+        layout="@layout/toolbar_add_note" />
+
+    <EditText
+        android:id="@+id/enter_name_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_toolbar"
+        android:hint="@string/my_hint"
+        android:inputType="textCapSentences|textAutoCorrect" />
+
+    <EditText
+        android:id="@+id/enter_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enter_name_note"
+        android:hint="@string/enter_note"
+        android:inputType="textMultiLine|textAutoCorrect" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonNoteDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:src="@drawable/ic_check_white_24dp" />
+
+
+</RelativeLayout>
