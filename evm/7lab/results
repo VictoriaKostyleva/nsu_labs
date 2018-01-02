@@ -1,0 +1,24 @@
+
+
+
+
+
+
+
+Time taken(BLAS): 123.9956346880 sec.
+Time taken(PURE): 667.3663646130 sec.
+Time taken(HAND): 533.2434424130 sec.
+
+
+
+O3
+Time taken(BLAS): 130.4076602010 sec.
+Time taken(PURE): 162.6948311360 sec.
+Time taken(HAND): 113.4509263300 sec.
+gcc 7lab.cpp -O3 -lblas
+
+
+
+
+
+

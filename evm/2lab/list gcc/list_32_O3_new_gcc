@@ -1,0 +1,199 @@
+	.file	"evm_2.cpp"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4,,15
+	.globl	_Z10bubbleSortPi
+	.type	_Z10bubbleSortPi, @function
+_Z10bubbleSortPi:
+.LFB45:
+	.cfi_startproc
+	pushl	%ebx
+	.cfi_def_cfa_offset 8
+	.cfi_offset 3, -8
+	movl	8(%esp), %eax
+	movl	$9, %edx
+	.p2align 4,,10
+	.p2align 3
+.L4:
+	testl	%edx, %edx
+	je	.L6
+	movl	(%eax), %ecx
+	movl	4(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L5
+	movl	%ebx, (%eax)
+	movl	%ecx, 4(%eax)
+.L5:
+	cmpl	$1, %edx
+	je	.L6
+	movl	4(%eax), %ecx
+	movl	8(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L7
+	movl	%ebx, 4(%eax)
+	movl	%ecx, 8(%eax)
+.L7:
+	cmpl	$2, %edx
+	je	.L6
+	movl	8(%eax), %ecx
+	movl	12(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L8
+	movl	%ebx, 8(%eax)
+	movl	%ecx, 12(%eax)
+.L8:
+	cmpl	$3, %edx
+	je	.L6
+	movl	12(%eax), %ecx
+	movl	16(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L9
+	movl	%ebx, 12(%eax)
+	movl	%ecx, 16(%eax)
+.L9:
+	cmpl	$4, %edx
+	je	.L6
+	movl	16(%eax), %ecx
+	movl	20(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L10
+	movl	%ebx, 16(%eax)
+	movl	%ecx, 20(%eax)
+.L10:
+	cmpl	$5, %edx
+	je	.L6
+	movl	20(%eax), %ecx
+	movl	24(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L11
+	movl	%ebx, 20(%eax)
+	movl	%ecx, 24(%eax)
+.L11:
+	cmpl	$6, %edx
+	je	.L6
+	movl	24(%eax), %ecx
+	movl	28(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L12
+	movl	%ebx, 24(%eax)
+	movl	%ecx, 28(%eax)
+.L12:
+	cmpl	$7, %edx
+	je	.L6
+	movl	28(%eax), %ecx
+	movl	32(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L13
+	movl	%ebx, 28(%eax)
+	movl	%ecx, 32(%eax)
+.L13:
+	cmpl	$8, %edx
+	je	.L6
+	movl	32(%eax), %ecx
+	movl	36(%eax), %ebx
+	cmpl	%ebx, %ecx
+	jle	.L6
+	movl	%ebx, 32(%eax)
+	movl	%ecx, 36(%eax)
+.L6:
+	subl	$1, %edx
+	cmpl	$-1, %edx
+	jne	.L4
+	popl	%ebx
+	.cfi_restore 3
+	.cfi_def_cfa_offset 4
+	ret
+	.cfi_endproc
+.LFE45:
+	.size	_Z10bubbleSortPi, .-_Z10bubbleSortPi
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.section	.text.startup,"ax",@progbits
+.LHOTB1:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+.LFB46:
+	.cfi_startproc
+	leal	4(%esp), %ecx
+	.cfi_def_cfa 1, 0
+	andl	$-16, %esp
+	pushl	-4(%ecx)
+	pushl	%ebp
+	.cfi_escape 0x10,0x5,0x2,0x75,0
+	movl	%esp, %ebp
+	pushl	%edi
+	pushl	%esi
+	pushl	%ebx
+	pushl	%ecx
+	.cfi_escape 0xf,0x3,0x75,0x70,0x6
+	.cfi_escape 0x10,0x7,0x2,0x75,0x7c
+	.cfi_escape 0x10,0x6,0x2,0x75,0x78
+	.cfi_escape 0x10,0x3,0x2,0x75,0x74
+	leal	-68(%ebp), %edi
+	leal	-28(%ebp), %esi
+	movl	$1374389535, %ebx
+	subl	$56, %esp
+	movl	%gs:20, %eax
+	movl	%eax, -28(%ebp)
+	xorl	%eax, %eax
+	.p2align 4,,10
+	.p2align 3
+.L43:
+	call	rand
+	movl	%eax, %ecx
+	addl	$4, %edi
+	imull	%ebx
+	movl	%ecx, %eax
+	sarl	$31, %eax
+	sarl	$5, %edx
+	subl	%eax, %edx
+	imull	$100, %edx, %edx
+	subl	%edx, %ecx
+	movl	%ecx, -4(%edi)
+	cmpl	%esi, %edi
+	jne	.L43
+	leal	-68(%ebp), %eax
+	subl	$12, %esp
+	pushl	%eax
+	call	_Z10bubbleSortPi
+	addl	$16, %esp
+	xorl	%eax, %eax
+	movl	-28(%ebp), %ebx
+	xorl	%gs:20, %ebx
+	jne	.L47
+	leal	-16(%ebp), %esp
+	popl	%ecx
+	.cfi_remember_state
+	.cfi_restore 1
+	.cfi_def_cfa 1, 0
+	popl	%ebx
+	.cfi_restore 3
+	popl	%esi
+	.cfi_restore 6
+	popl	%edi
+	.cfi_restore 7
+	popl	%ebp
+	.cfi_restore 5
+	leal	-4(%ecx), %esp
+	.cfi_def_cfa 4, 4
+	ret
+.L47:
+	.cfi_restore_state
+	call	__stack_chk_fail
+	.cfi_endproc
+.LFE46:
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE1:
+	.section	.text.startup
+.LHOTE1:
+	.ident	"GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.2) 5.4.0 20160609"
+	.section	.note.GNU-stack,"",@progbits

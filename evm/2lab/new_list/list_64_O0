@@ -1,0 +1,231 @@
+	.file	"evm_2.cpp"
+	.local	_ZStL8__ioinit
+	.comm	_ZStL8__ioinit,1,1
+	.text
+	.globl	_Z10bubbleSortPii
+	.type	_Z10bubbleSortPii, @function
+_Z10bubbleSortPii:
+.LFB1026:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)
+	movl	%esi, -28(%rbp)
+	movl	$0, -4(%rbp)
+	movl	$0, -12(%rbp)
+	movl	$0, -8(%rbp)
+	movl	-28(%rbp), %eax
+	subl	$1, %eax
+	movl	%eax, -12(%rbp)
+.L6:
+	cmpl	$0, -12(%rbp)
+	js	.L7
+	movl	$0, -8(%rbp)
+.L5:
+	movl	-8(%rbp), %eax
+	cmpl	-12(%rbp), %eax
+	jge	.L3
+	movl	-8(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rdx, %rax
+	movl	(%rax), %edx
+	movl	-8(%rbp), %eax
+	cltq
+	addq	$1, %rax
+	leaq	0(,%rax,4), %rcx
+	movq	-24(%rbp), %rax
+	addq	%rcx, %rax
+	movl	(%rax), %eax
+	cmpl	%eax, %edx
+	jle	.L4
+	movl	-8(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rdx, %rax
+	movl	(%rax), %eax
+	movl	%eax, -4(%rbp)
+	movl	-8(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rax, %rdx
+	movl	-8(%rbp), %eax
+	cltq
+	addq	$1, %rax
+	leaq	0(,%rax,4), %rcx
+	movq	-24(%rbp), %rax
+	addq	%rcx, %rax
+	movl	(%rax), %eax
+	movl	%eax, (%rdx)
+	movl	-8(%rbp), %eax
+	cltq
+	addq	$1, %rax
+	leaq	0(,%rax,4), %rdx
+	movq	-24(%rbp), %rax
+	addq	%rax, %rdx
+	movl	-4(%rbp), %eax
+	movl	%eax, (%rdx)
+.L4:
+	addl	$1, -8(%rbp)
+	jmp	.L5
+.L3:
+	subl	$1, -12(%rbp)
+	jmp	.L6
+.L7:
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1026:
+	.size	_Z10bubbleSortPii, .-_Z10bubbleSortPii
+	.section	.rodata
+	.align 8
+.LC0:
+	.string	"\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \321\200\320\260\320\267\320\274\320\265\321\200 \320\274\320\260\321\201\321\201\320\270\320\262\320\260: "
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB1027:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$56, %rsp
+	.cfi_offset 3, -24
+	movl	%edi, -52(%rbp)
+	movq	%rsi, -64(%rbp)
+	movq	%fs:40, %rax
+	movq	%rax, -24(%rbp)
+	xorl	%eax, %eax
+	movl	$.LC0, %esi
+	movl	$_ZSt4cout, %edi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+	movl	$0, -36(%rbp)
+	leaq	-40(%rbp), %rax
+	movq	%rax, %rsi
+	movl	$_ZSt3cin, %edi
+	call	_ZNSirsERi
+	movl	-40(%rbp), %eax
+	cltq
+	movabsq	$2287828610704211968, %rdx
+	cmpq	%rdx, %rax
+	ja	.L9
+	salq	$2, %rax
+	jmp	.L10
+.L9:
+	movq	$-1, %rax
+.L10:
+	movq	%rax, %rdi
+	call	_Znam
+	movq	%rax, -32(%rbp)
+	movl	$0, -36(%rbp)
+.L12:
+	movl	-40(%rbp), %eax
+	cmpl	%eax, -36(%rbp)
+	jge	.L11
+	movl	-36(%rbp), %eax
+	cltq
+	leaq	0(,%rax,4), %rdx
+	movq	-32(%rbp), %rax
+	leaq	(%rdx,%rax), %rbx
+	call	rand
+	movl	%eax, %ecx
+	movl	$1374389535, %edx
+	movl	%ecx, %eax
+	imull	%edx
+	sarl	$5, %edx
+	movl	%ecx, %eax
+	sarl	$31, %eax
+	subl	%eax, %edx
+	movl	%edx, %eax
+	imull	$100, %eax, %eax
+	subl	%eax, %ecx
+	movl	%ecx, %eax
+	movl	%eax, (%rbx)
+	addl	$1, -36(%rbp)
+	jmp	.L12
+.L11:
+	movl	-40(%rbp), %edx
+	movq	-32(%rbp), %rax
+	movl	%edx, %esi
+	movq	%rax, %rdi
+	call	_Z10bubbleSortPii
+	movl	$0, %eax
+	movq	-24(%rbp), %rbx
+	xorq	%fs:40, %rbx
+	je	.L14
+	call	__stack_chk_fail
+.L14:
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1027:
+	.size	main, .-main
+	.type	_Z41__static_initialization_and_destruction_0ii, @function
+_Z41__static_initialization_and_destruction_0ii:
+.LFB1031:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	cmpl	$1, -4(%rbp)
+	jne	.L17
+	cmpl	$65535, -8(%rbp)
+	jne	.L17
+	movl	$_ZStL8__ioinit, %edi
+	call	_ZNSt8ios_base4InitC1Ev
+	movl	$__dso_handle, %edx
+	movl	$_ZStL8__ioinit, %esi
+	movl	$_ZNSt8ios_base4InitD1Ev, %edi
+	call	__cxa_atexit
+.L17:
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1031:
+	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
+	.type	_GLOBAL__sub_I__Z10bubbleSortPii, @function
+_GLOBAL__sub_I__Z10bubbleSortPii:
+.LFB1032:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	$65535, %esi
+	movl	$1, %edi
+	call	_Z41__static_initialization_and_destruction_0ii
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1032:
+	.size	_GLOBAL__sub_I__Z10bubbleSortPii, .-_GLOBAL__sub_I__Z10bubbleSortPii
+	.section	.init_array,"aw"
+	.align 8
+	.quad	_GLOBAL__sub_I__Z10bubbleSortPii
+	.hidden	__dso_handle
+	.ident	"GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.2) 5.4.0 20160609"
+	.section	.note.GNU-stack,"",@progbits

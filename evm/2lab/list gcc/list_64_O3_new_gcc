@@ -1,0 +1,178 @@
+	.file	"evm_2.cpp"
+	.section	.text.unlikely,"ax",@progbits
+.LCOLDB0:
+	.text
+.LHOTB0:
+	.p2align 4,,15
+	.globl	_Z10bubbleSortPi
+	.type	_Z10bubbleSortPi, @function
+_Z10bubbleSortPi:
+.LFB45:
+	.cfi_startproc
+	movl	$9, %eax
+	.p2align 4,,10
+	.p2align 3
+.L4:
+	testl	%eax, %eax
+	je	.L6
+	movl	(%rdi), %edx
+	movl	4(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L5
+	movl	%ecx, (%rdi)
+	movl	%edx, 4(%rdi)
+.L5:
+	cmpl	$1, %eax
+	je	.L6
+	movl	4(%rdi), %edx
+	movl	8(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L7
+	movl	%ecx, 4(%rdi)
+	movl	%edx, 8(%rdi)
+.L7:
+	cmpl	$2, %eax
+	je	.L6
+	movl	8(%rdi), %edx
+	movl	12(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L8
+	movl	%ecx, 8(%rdi)
+	movl	%edx, 12(%rdi)
+.L8:
+	cmpl	$3, %eax
+	je	.L6
+	movl	12(%rdi), %edx
+	movl	16(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L9
+	movl	%ecx, 12(%rdi)
+	movl	%edx, 16(%rdi)
+.L9:
+	cmpl	$4, %eax
+	je	.L6
+	movl	16(%rdi), %edx
+	movl	20(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L10
+	movl	%ecx, 16(%rdi)
+	movl	%edx, 20(%rdi)
+.L10:
+	cmpl	$5, %eax
+	je	.L6
+	movl	20(%rdi), %edx
+	movl	24(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L11
+	movl	%ecx, 20(%rdi)
+	movl	%edx, 24(%rdi)
+.L11:
+	cmpl	$6, %eax
+	je	.L6
+	movl	24(%rdi), %edx
+	movl	28(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L12
+	movl	%ecx, 24(%rdi)
+	movl	%edx, 28(%rdi)
+.L12:
+	cmpl	$7, %eax
+	je	.L6
+	movl	28(%rdi), %edx
+	movl	32(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L13
+	movl	%ecx, 28(%rdi)
+	movl	%edx, 32(%rdi)
+.L13:
+	cmpl	$8, %eax
+	je	.L6
+	movl	32(%rdi), %edx
+	movl	36(%rdi), %ecx
+	cmpl	%ecx, %edx
+	jle	.L6
+	movl	%ecx, 32(%rdi)
+	movl	%edx, 36(%rdi)
+.L6:
+	subl	$1, %eax
+	cmpl	$-1, %eax
+	jne	.L4
+	rep ret
+	.cfi_endproc
+.LFE45:
+	.size	_Z10bubbleSortPi, .-_Z10bubbleSortPi
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+.LCOLDB1:
+	.section	.text.startup,"ax",@progbits
+.LHOTB1:
+	.p2align 4,,15
+	.globl	main
+	.type	main, @function
+main:
+.LFB46:
+	.cfi_startproc
+	pushq	%r12
+	.cfi_def_cfa_offset 16
+	.cfi_offset 12, -16
+	pushq	%rbp
+	.cfi_def_cfa_offset 24
+	.cfi_offset 6, -24
+	pushq	%rbx
+	.cfi_def_cfa_offset 32
+	.cfi_offset 3, -32
+	movl	$1374389535, %ebx
+	subq	$48, %rsp
+	.cfi_def_cfa_offset 80
+	movq	%fs:40, %rax
+	movq	%rax, 40(%rsp)
+	xorl	%eax, %eax
+	leaq	40(%rsp), %rbp
+	movq	%rsp, %r12
+	.p2align 4,,10
+	.p2align 3
+.L41:
+	call	rand
+	movl	%eax, %ecx
+	addq	$4, %r12
+	imull	%ebx
+	movl	%ecx, %eax
+	sarl	$31, %eax
+	sarl	$5, %edx
+	subl	%eax, %edx
+	imull	$100, %edx, %edx
+	subl	%edx, %ecx
+	movl	%ecx, -4(%r12)
+	cmpq	%rbp, %r12
+	jne	.L41
+	movq	%rsp, %rdi
+	call	_Z10bubbleSortPi
+	xorl	%eax, %eax
+	movq	40(%rsp), %rsi
+	xorq	%fs:40, %rsi
+	jne	.L45
+	addq	$48, %rsp
+	.cfi_remember_state
+	.cfi_def_cfa_offset 32
+	popq	%rbx
+	.cfi_def_cfa_offset 24
+	popq	%rbp
+	.cfi_def_cfa_offset 16
+	popq	%r12
+	.cfi_def_cfa_offset 8
+	ret
+.L45:
+	.cfi_restore_state
+	call	__stack_chk_fail
+	.cfi_endproc
+.LFE46:
+	.size	main, .-main
+	.section	.text.unlikely
+.LCOLDE1:
+	.section	.text.startup
+.LHOTE1:
+	.ident	"GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.2) 5.4.0 20160609"
+	.section	.note.GNU-stack,"",@progbits
